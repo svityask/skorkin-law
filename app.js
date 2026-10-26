@@ -22,7 +22,10 @@
       img.onerror = () => img.remove();
     } else img.remove();
 
-    $('seal-text').textContent = c.hero.seal || '';
+    // Буквы печати расставляем по кругу по одной: SVG textPath в iOS Safari вращается со смещением
+    const chars = [...(c.hero.seal || '')];
+    $('seal-text').innerHTML = chars.map((ch, i) =>
+      `<span style="transform:rotate(${(360 / chars.length) * i}deg)">${esc(ch)}</span>`).join('');
 
     const band = $('band-photo');
     if (c.band && c.band.photo) { band.src = c.band.photo; band.alt = c.band.author || ''; }

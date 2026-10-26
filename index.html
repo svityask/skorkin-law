@@ -51,13 +51,10 @@
             <img id="portrait" alt="" data-bind-src="hero.photo">
             <div class="portrait__fallback" data-bind="brand.monogram"></div>
           </div>
-          <svg class="seal" viewBox="0 0 200 200" aria-hidden="true">
-            <defs><path id="seal-path" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
-            <circle cx="100" cy="100" r="96" class="seal__ring"/>
-            <circle cx="100" cy="100" r="54" class="seal__ring seal__ring--in"/>
-            <text class="seal__text"><textPath href="#seal-path" id="seal-text"></textPath></text>
-            <text x="100" y="117" text-anchor="middle" class="seal__mark">§</text>
-          </svg>
+          <div class="seal" aria-hidden="true">
+            <div class="seal__text" id="seal-text"></div>
+            <span class="seal__mark">§</span>
+          </div>
           <figcaption data-bind="hero.photo_caption"></figcaption>
         </figure>
       </div>

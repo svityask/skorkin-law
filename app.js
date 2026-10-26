@@ -22,8 +22,21 @@
       img.onerror = () => img.remove();
     } else img.remove();
 
+    $('seal-text').textContent = c.hero.seal || '';
+
+    const band = $('band-photo');
+    if (c.band && c.band.photo) { band.src = c.band.photo; band.alt = c.band.author || ''; }
+    else document.querySelector('.band').classList.add('band--nophoto');
+
+    const links = [
+      ['Telegram', c.brand.telegram && 'https://t.me/' + c.brand.telegram.replace(/^@|https?:\/\/t\.me\//g, '')],
+      ['WhatsApp', c.brand.whatsapp && 'https://wa.me/' + c.brand.whatsapp.replace(/\D/g, '')]
+    ].filter(([, href]) => href);
+    $('messengers').innerHTML = links.map(([name, href]) => `<a href="${esc(href)}" target="_blank" rel="noopener">${name}</a>`).join('');
+    if (!links.length) document.querySelectorAll('.js-messengers').forEach((n) => n.remove());
+
     $('stats').innerHTML = c.stats.map((s) =>
-      `<div class="stat reveal"><div class="stat__value">${esc(s.value)}</div><div class="stat__label">${esc(s.label)}</div></div>`).join('');
+      `<div class="stat reveal"><div class="stat__value" data-count="${esc(s.value)}">${esc(s.value)}</div><div class="stat__label">${esc(s.label)}</div></div>`).join('');
 
     $('practice-list').innerHTML = c.practice.items.map((p, i) =>
       `<article class="practice__item reveal"><span class="practice__num">${roman[i] || i + 1}.</span><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p></article>`).join('');
@@ -49,10 +62,35 @@
     });
 
     const io = new IntersectionObserver((entries) => entries.forEach((en) => {
-      if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      if (!en.isIntersecting) return;
+      en.target.classList.add('is-in');
+      const num = en.target.querySelector('[data-count]');
+      if (num) countUp(num);
+      io.unobserve(en.target);
     }), { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
   }
+
+  // Плавный счёт для цифр вида «25+»; текстовые значения («Сотни», «С 2009») не трогаем
+  function countUp(node) {
+    const m = node.dataset.count.match(/^()(\d+)(\D*)$/);
+    if (!m || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const target = +m[2], t0 = performance.now(), dur = 1400;
+    const tick = (t) => {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      node.textContent = m[1] + Math.round(target * e) + m[3];
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  const topbar = document.querySelector('.topbar');
+  const onScroll = () => {
+    topbar.classList.toggle('is-scrolled', scrollY > 40);
+    document.body.classList.toggle('show-mbar', scrollY > 500);
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
   $('burger').addEventListener('click', () => $('nav').classList.toggle('is-open'));
   $('nav').addEventListener('click', (e) => { if (e.target.tagName === 'A') $('nav').classList.remove('is-open'); });

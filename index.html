@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fbfaf7">
   <title>Юрист</title>
   <meta name="description" content="">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +51,13 @@
             <img id="portrait" alt="" data-bind-src="hero.photo">
             <div class="portrait__fallback" data-bind="brand.monogram"></div>
           </div>
+          <svg class="seal" viewBox="0 0 200 200" aria-hidden="true">
+            <defs><path id="seal-path" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+            <circle cx="100" cy="100" r="96" class="seal__ring"/>
+            <circle cx="100" cy="100" r="54" class="seal__ring seal__ring--in"/>
+            <text class="seal__text"><textPath href="#seal-path" id="seal-text"></textPath></text>
+            <text x="100" y="117" text-anchor="middle" class="seal__mark">§</text>
+          </svg>
           <figcaption data-bind="hero.photo_caption"></figcaption>
         </figure>
       </div>
@@ -80,6 +88,15 @@
           <div id="about-text" class="prose"></div>
           <ol class="timeline" id="credentials"></ol>
         </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="band__photo"><img id="band-photo" alt="" loading="lazy"></div>
+      <div class="band__body">
+        <span class="band__mark">“</span>
+        <blockquote class="band__quote" data-bind="band.quote"></blockquote>
+        <p class="band__author" data-bind="band.author"></p>
       </div>
     </section>
 
@@ -122,6 +139,7 @@
           <dl class="contact__list">
             <dt>Телефон</dt><dd><a data-bind="brand.phone" data-bind-href="tel:brand.phone"></a></dd>
             <dt>Email</dt><dd><a data-bind="brand.email" data-bind-href="mailto:brand.email"></a></dd>
+            <dt class="js-messengers">Мессенджеры</dt><dd class="js-messengers messengers" id="messengers"></dd>
             <dt>Адрес</dt><dd data-bind="contact.address"></dd>
             <dt>Часы</dt><dd data-bind="contact.hours"></dd>
           </dl>
@@ -138,14 +156,38 @@
   </main>
 
   <footer class="footer">
-    <div class="wrap footer__inner">
-      <div class="footer__brand">
-        <span class="brand__mono brand__mono--light" data-bind="brand.monogram"></span>
-        <span>© <span id="year"></span> <span data-bind="brand.name"></span></span>
+    <div class="wrap footer__grid">
+      <div class="footer__col footer__col--brand">
+        <a href="#top" class="brand brand--light">
+          <span class="brand__mono brand__mono--light" data-bind="brand.monogram"></span>
+          <span class="brand__text">
+            <span class="brand__name" data-bind="brand.name"></span>
+            <span class="brand__tag" data-bind="brand.tagline"></span>
+          </span>
+        </a>
+        <p class="footer__disc" data-bind="footer.disclaimer"></p>
       </div>
-      <p class="footer__disc" data-bind="footer.disclaimer"></p>
+      <nav class="footer__col">
+        <p class="footer__title">Разделы</p>
+        <a href="#practice">Практика</a>
+        <a href="#about">Обо мне</a>
+        <a href="#cases">Ситуации</a>
+        <a href="#approach">Подход</a>
+      </nav>
+      <div class="footer__col">
+        <p class="footer__title">Связь</p>
+        <a data-bind="brand.phone" data-bind-href="tel:brand.phone"></a>
+        <a data-bind="brand.email" data-bind-href="mailto:brand.email"></a>
+        <span data-bind="contact.address"></span>
+      </div>
     </div>
+    <div class="wrap"><div class="footer__bottom">© <span id="year"></span> <span data-bind="hero.photo_caption"></span></div></div>
   </footer>
+
+  <div class="mbar">
+    <a class="mbar__call" data-bind-href="tel:brand.phone">Позвонить</a>
+    <a class="mbar__cta" href="#contact">Консультация</a>
+  </div>
 
   <script src="app.js"></script>
 </body>

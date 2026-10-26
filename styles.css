@@ -256,3 +256,120 @@ h2 { font-size: clamp(36px, 4.4vw, 56px); }
   .footer__disc { text-align: left; }
   .portrait { outline-offset: 8px; }
 }
+
+/* ---------- Доработки визуала ---------- */
+
+/* Едва заметное зерно бумаги */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 100; pointer-events: none; opacity: .045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Шапка ужимается при прокрутке */
+.topbar__inner { transition: height .35s ease; }
+.topbar.is-scrolled { box-shadow: 0 10px 30px -24px rgba(13,27,46,.5); }
+.topbar.is-scrolled .topbar__inner { height: 68px; }
+
+/* Первый экран: мягкое появление */
+.hero__copy > *, .hero__portrait { animation: rise 1.1s cubic-bezier(.2,.7,.2,1) both; }
+.hero__copy > :nth-child(2) { animation-delay: .08s; }
+.hero__copy > :nth-child(3) { animation-delay: .16s; }
+.hero__copy > :nth-child(4) { animation-delay: .24s; }
+.hero__copy > :nth-child(5) { animation-delay: .32s; }
+.hero__portrait { animation-delay: .2s; }
+@keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+/* Печать на портрете */
+.hero__portrait { position: relative; }
+.seal {
+  position: absolute; left: -58px; bottom: 36px; width: 132px; height: 132px; z-index: 2;
+  background: var(--paper); border-radius: 50%;
+  box-shadow: 0 18px 40px -22px rgba(13,27,46,.55);
+  animation: rise 1.1s .5s both;
+}
+.seal__ring { fill: none; stroke: var(--brass); stroke-width: 1; }
+.seal__ring--in { stroke: var(--line); }
+.seal__text { transform-box: view-box; transform-origin: 50% 50%; animation: spin 60s linear infinite; font: 500 13.4px var(--sans); letter-spacing: .21em; text-transform: uppercase; fill: var(--navy); }
+.seal__mark { font: 400 50px var(--serif); fill: var(--oxblood); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Направления: линия при наведении */
+.practice__item { position: relative; }
+.practice__item::before {
+  content: ""; position: absolute; top: -1px; left: 0; width: 0; height: 2px; background: var(--oxblood);
+  transition: width .5s cubic-bezier(.2,.7,.2,1);
+}
+.practice__item:not(:nth-child(3n+1))::before { left: 40px; }
+.practice__item:hover::before { width: 64px; }
+.practice__item h3 { transition: color .3s; }
+.practice__item:hover h3 { color: var(--oxblood); }
+
+/* Баннер с цитатой и крупным портретом */
+.band { display: grid; grid-template-columns: 5fr 7fr; background: var(--navy); color: #fff; min-height: 560px; }
+.band__photo { position: relative; overflow: hidden; }
+.band__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; filter: grayscale(1) contrast(1.08) brightness(.95); }
+.band__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13,27,46,0) 55%, var(--navy)); mix-blend-mode: normal; }
+.band__photo::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--navy); mix-blend-mode: color; opacity: .55; }
+.band__body { padding: 110px 9vw 110px 72px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+.band__mark { font: 400 180px/0.6 var(--serif); color: var(--brass); opacity: .5; height: 70px; }
+.band__quote { margin: 0; font: italic 400 clamp(26px, 2.6vw, 38px)/1.35 var(--serif); color: #fff; max-width: 720px; }
+.band__author { margin: 40px 0 0; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--brass); display: flex; align-items: center; gap: 14px; }
+.band__author::before { content: ""; width: 40px; height: 1px; background: currentColor; }
+.band--nophoto { grid-template-columns: 1fr; }
+.band--nophoto .band__photo { display: none; }
+
+/* Мессенджеры */
+.messengers { display: flex; gap: 20px; flex-wrap: wrap; }
+.messengers a { border-bottom: 1px solid var(--brass); }
+
+/* Подвал */
+.footer { padding: 80px 0 0; }
+.footer__grid { display: grid; grid-template-columns: 2fr 1fr 1.3fr; gap: 56px; padding-bottom: 56px; }
+.footer__col { display: flex; flex-direction: column; gap: 12px; }
+.footer__col a { text-decoration: none; color: rgba(255,255,255,.75); transition: color .2s; width: fit-content; }
+.footer__col a:hover { color: #fff; }
+.footer__title { margin: 0 0 6px; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--brass); }
+.brand--light .brand__name { color: #fff; }
+.brand--light .brand__tag { color: rgba(255,255,255,.5); }
+.footer .footer__disc { text-align: left; margin-top: 18px; max-width: 420px; line-height: 1.6; }
+.footer__bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px; padding-bottom: 28px; font-size: 12px; color: rgba(255,255,255,.4); }
+
+/* Мобильная панель действий */
+.mbar { display: none; }
+
+@media (max-width: 1080px) {
+  .band { grid-template-columns: 1fr 1fr; }
+  .band__body { padding: 80px 40px; }
+  .practice__item:not(:nth-child(3n+1))::before { left: 0; }
+  .practice__item:nth-child(2n)::before { left: 32px; }
+}
+@media (max-width: 680px) {
+  .seal { width: 96px; height: 96px; left: auto; right: -6px; bottom: auto; top: -28px; }
+  .band { grid-template-columns: 1fr; min-height: 0; }
+  .band__photo { height: 420px; }
+  .band__photo::after { background: linear-gradient(180deg, rgba(13,27,46,0) 50%, var(--navy)); }
+  .band__body { padding: 8px 16px 72px; }
+  .band__mark { font-size: 120px; height: 46px; }
+  .practice__item::before, .practice__item:nth-child(2n)::before { left: 0; }
+  .footer { padding-top: 56px; }
+  .footer__grid { grid-template-columns: 1fr; gap: 36px; }
+  .footer__bottom { padding-bottom: 96px; }
+  .mbar {
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    background: var(--paper); border-top: 1px solid var(--line);
+    transform: translateY(110%); transition: transform .35s ease;
+  }
+  .show-mbar .mbar { transform: none; }
+  .mbar a {
+    display: flex; align-items: center; justify-content: center; height: 48px; text-decoration: none;
+    font: 500 11px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  }
+  .mbar__call { border: 1px solid var(--navy); color: var(--navy); }
+  .mbar__cta { background: var(--oxblood); color: #fff; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}

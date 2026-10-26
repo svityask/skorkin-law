@@ -2,20 +2,19 @@
   const CFG = window.ADMIN_CONFIG;
   const API = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/`;
   const CONTENT_PATH = CFG.root + 'content.json';
-  const PHOTO_PATH = CFG.root + 'assets/portrait.jpg';
   const TOKEN_KEY = 'lawyer-admin-token';
 
   // Подписи разделов и полей
   const SECTIONS = {
     brand: 'Имя и контакты', hero: 'Первый экран', stats: 'Цифры', practice: 'Практика',
-    about: 'Обо мне', cases: 'Типичные ситуации', approach: 'Подход', recognition: 'Принципы',
+    about: 'Обо мне', band: 'Цитата с портретом', cases: 'Типичные ситуации', approach: 'Подход', recognition: 'Принципы',
     contact: 'Контакты', footer: 'Подвал', meta: 'SEO'
   };
   const LABELS = {
     title: 'Заголовок', description: 'Описание', name: 'Имя', monogram: 'Монограмма (2 буквы)',
     tagline: 'Подпись под именем', phone: 'Телефон', email: 'Email', eyebrow: 'Надзаголовок',
     lead: 'Вводный текст', cta_primary: 'Кнопка (основная)', cta_secondary: 'Ссылка (вторая)',
-    photo: 'Фотография', photo_caption: 'Подпись к фото', value: 'Значение', label: 'Подпись',
+    photo: 'Фотография', seal: 'Текст печати по кругу', author: 'Подпись', telegram: 'Telegram (ник без @)', whatsapp: 'WhatsApp (номер)', photo_caption: 'Подпись к фото', value: 'Значение', label: 'Подпись',
     items: 'Элементы', text: 'Текст', quote: 'Цитата', paragraphs: 'Абзацы', credentials: 'Образование и вехи',
     year: 'Год', note: 'Примечание', area: 'Категория', result: 'Результат', steps: 'Шаги',
     address: 'Адрес', hours: 'Часы работы', form_button: 'Текст кнопки формы', disclaimer: 'Дисклеймер'
@@ -207,11 +206,14 @@
       try {
         $('status').textContent = 'Загрузка фото…';
         const data = await resize(file, 1600);
+        // Перезаписываем тот же файл, на который ссылается поле (portrait.jpg, portrait-close.jpg…)
+        const rel = String(parent[key] || 'assets/photo.jpg').split('?')[0];
+        const PHOTO_PATH = CFG.root + rel;
         await gh(PHOTO_PATH, {
           method: 'PUT',
           body: JSON.stringify({ message: 'Обновить фото на сайте', content: data, branch: CFG.branch, sha: await fileSha(PHOTO_PATH) })
         });
-        parent[key] = 'assets/portrait.jpg?v=' + Date.now();
+        parent[key] = rel + '?v=' + Date.now();
         preview.src = 'data:image/jpeg;base64,' + data;
         setDirty(true);
         toast('Фото загружено. Нажмите «Опубликовать», чтобы сохранить ссылку.');

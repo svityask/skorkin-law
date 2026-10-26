@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Управление сайтом</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- Вход -->
+  <section class="login" id="login">
+    <div class="login__card">
+      <div class="mono">§</div>
+      <h1>Управление сайтом</h1>
+      <p class="muted">Введите ключ доступа GitHub (fine-grained token с правом <b>Contents: Read and write</b> на репозиторий сайта). Ключ хранится только в этом браузере.</p>
+      <form id="login-form">
+        <label><span>Ключ доступа</span><input type="password" id="token" autocomplete="current-password" required></label>
+        <button class="btn btn--primary" type="submit">Войти</button>
+      </form>
+      <p class="error" id="login-error"></p>
+      <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" class="small">Как получить ключ →</a>
+    </div>
+  </section>
+
+  <!-- Панель -->
+  <div class="app" id="app" hidden>
+    <aside class="side">
+      <div class="side__brand"><div class="mono mono--sm">§</div><span>Админ-панель</span></div>
+      <nav class="side__nav" id="side-nav"></nav>
+      <div class="side__foot">
+        <a href="../" target="_blank" rel="noopener">Открыть сайт ↗</a>
+        <button class="linkbtn" id="logout">Выйти</button>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="bar">
+        <div>
+          <h2 id="section-title">Контент</h2>
+          <p class="muted small" id="status">Загрузка…</p>
+        </div>
+        <div class="bar__actions">
+          <button class="btn btn--ghost" id="download">Скачать JSON</button>
+          <button class="btn btn--primary" id="save" disabled>Опубликовать</button>
+        </div>
+      </header>
+      <div class="editor" id="editor"></div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

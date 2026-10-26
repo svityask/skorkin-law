@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Юрист</title>
+  <meta name="description" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar" id="top">
+    <div class="wrap topbar__inner">
+      <a href="#top" class="brand">
+        <span class="brand__mono" data-bind="brand.monogram"></span>
+        <span class="brand__text">
+          <span class="brand__name" data-bind="brand.name"></span>
+          <span class="brand__tag" data-bind="brand.tagline"></span>
+        </span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#practice">Практика</a>
+        <a href="#about">Обо мне</a>
+        <a href="#cases">Ситуации</a>
+        <a href="#approach">Подход</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+      <a class="btn btn--ghost topbar__cta" href="#contact">Консультация</a>
+      <button class="burger" aria-label="Меню" id="burger"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow" data-bind="hero.eyebrow"></p>
+          <h1 class="hero__title" data-bind="hero.title"></h1>
+          <div class="rule rule--accent"></div>
+          <p class="hero__lead" data-bind="hero.lead"></p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#contact" data-bind="hero.cta_primary"></a>
+            <a class="link-arrow" href="#practice" data-bind="hero.cta_secondary"></a>
+          </div>
+        </div>
+        <figure class="hero__portrait">
+          <div class="portrait">
+            <img id="portrait" alt="" data-bind-src="hero.photo">
+            <div class="portrait__fallback" data-bind="brand.monogram"></div>
+          </div>
+          <figcaption data-bind="hero.photo_caption"></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="wrap stats__grid" id="stats"></div>
+    </section>
+
+    <section class="section" id="practice">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow" data-bind="practice.eyebrow"></p>
+          <h2 data-bind="practice.title"></h2>
+        </div>
+        <div class="practice" id="practice-list"></div>
+      </div>
+    </section>
+
+    <section class="section section--ivory" id="about">
+      <div class="wrap about">
+        <div class="about__side">
+          <p class="eyebrow" data-bind="about.eyebrow"></p>
+          <h2 data-bind="about.title"></h2>
+          <blockquote class="quote" data-bind="about.quote"></blockquote>
+        </div>
+        <div class="about__main">
+          <div id="about-text" class="prose"></div>
+          <ol class="timeline" id="credentials"></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cases">
+      <div class="wrap">
+        <div class="section__head section__head--split">
+          <div>
+            <p class="eyebrow" data-bind="cases.eyebrow"></p>
+            <h2 data-bind="cases.title"></h2>
+          </div>
+          <p class="muted small" data-bind="cases.note"></p>
+        </div>
+        <div class="cases" id="cases-list"></div>
+      </div>
+    </section>
+
+    <section class="section section--navy" id="approach">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow eyebrow--light" data-bind="approach.eyebrow"></p>
+          <h2 data-bind="approach.title"></h2>
+        </div>
+        <div class="steps" id="steps"></div>
+      </div>
+    </section>
+
+    <section class="recognition">
+      <div class="wrap recognition__inner">
+        <p class="eyebrow" data-bind="recognition.eyebrow"></p>
+        <div class="recognition__list" id="recognition"></div>
+      </div>
+    </section>
+
+    <section class="section section--ivory" id="contact">
+      <div class="wrap contact">
+        <div class="contact__info">
+          <p class="eyebrow" data-bind="contact.eyebrow"></p>
+          <h2 data-bind="contact.title"></h2>
+          <p class="prose" data-bind="contact.text"></p>
+          <dl class="contact__list">
+            <dt>Телефон</dt><dd><a data-bind="brand.phone" data-bind-href="tel:brand.phone"></a></dd>
+            <dt>Email</dt><dd><a data-bind="brand.email" data-bind-href="mailto:brand.email"></a></dd>
+            <dt>Адрес</dt><dd data-bind="contact.address"></dd>
+            <dt>Часы</dt><dd data-bind="contact.hours"></dd>
+          </dl>
+        </div>
+        <form class="form" id="form">
+          <label><span>Имя</span><input name="name" required autocomplete="name"></label>
+          <label><span>Телефон или email</span><input name="contact" required></label>
+          <label><span>Кратко о ситуации</span><textarea name="message" rows="5"></textarea></label>
+          <button class="btn btn--primary" type="submit" data-bind="contact.form_button"></button>
+          <p class="muted small">Отправляя форму, вы соглашаетесь на обработку персональных данных.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <span class="brand__mono brand__mono--light" data-bind="brand.monogram"></span>
+        <span>© <span id="year"></span> <span data-bind="brand.name"></span></span>
+      </div>
+      <p class="footer__disc" data-bind="footer.disclaimer"></p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

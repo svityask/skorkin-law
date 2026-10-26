@@ -68,8 +68,7 @@ h2 { font-size: clamp(36px, 4.4vw, 56px); }
 /* Шапка */
 .topbar {
   position: sticky; top: 0; z-index: 20;
-  background: rgba(251, 250, 247, .94);
-  backdrop-filter: blur(8px);
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
 .topbar__inner { display: flex; align-items: center; gap: 40px; height: 84px; }

@@ -22,10 +22,13 @@
       img.onerror = () => img.remove();
     } else img.remove();
 
-    // Буквы печати расставляем по кругу по одной: SVG textPath в iOS Safari вращается со смещением
-    const chars = [...(c.hero.seal || '')];
-    $('seal-text').innerHTML = chars.map((ch, i) =>
-      `<span style="transform:rotate(${(360 / chars.length) * i}deg)">${esc(ch)}</span>`).join('');
+    // Надпись печати — SVG-картинка: каждая буква повёрнута атрибутом transform внутри SVG,
+    // а вращается сам <img>. Так iOS Safari не сдвигает буквы с окружности.
+    const chars = [...(c.hero.seal || '').toUpperCase()];
+    const glyphs = chars.map((ch, i) =>
+      `<text x="100" y="27" transform="rotate(${((360 / chars.length) * i).toFixed(2)} 100 100)">${esc(ch)}</text>`).join('');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g font-family="Helvetica Neue, Arial, sans-serif" font-size="15" font-weight="500" fill="#0d1b2e" text-anchor="middle">${glyphs}</g></svg>`;
+    $('seal-text').src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 
     const band = $('band-photo');
     if (c.band && c.band.photo) { band.src = c.band.photo; band.alt = c.band.author || ''; }

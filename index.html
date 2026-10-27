@@ -6,10 +6,8 @@
   <meta name="theme-color" content="#fbfaf7">
   <title>Юрист</title>
   <meta name="description" content="">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <header class="topbar" id="top">
@@ -137,17 +135,17 @@
             <dt>Телефон</dt><dd><a data-bind="brand.phone" data-bind-href="tel:brand.phone"></a></dd>
             <dt>Email</dt><dd><a data-bind="brand.email" data-bind-href="mailto:brand.email"></a></dd>
             <dt class="js-messengers">Мессенджеры</dt><dd class="js-messengers messengers" id="messengers"></dd>
-            <dt>Адрес</dt><dd data-bind="contact.address"></dd>
+            <dt class="js-address">Адрес</dt><dd class="js-address" data-bind="contact.address"></dd>
             <dt>Часы</dt><dd data-bind="contact.hours"></dd>
           </dl>
         </div>
-        <form class="form" id="form">
-          <label><span>Имя</span><input name="name" required autocomplete="name"></label>
-          <label><span>Телефон или email</span><input name="contact" required></label>
-          <label><span>Кратко о ситуации</span><textarea name="message" rows="5"></textarea></label>
-          <button class="btn btn--primary" type="submit" data-bind="contact.form_button"></button>
-          <p class="muted small">Отправляя форму, вы соглашаетесь на обработку персональных данных.</p>
-        </form>
+        <div class="callcard">
+          <p class="callcard__label" data-bind="contact.card_title"></p>
+          <a class="callcard__phone" data-bind="brand.phone" data-bind-href="tel:brand.phone"></a>
+          <a class="btn btn--primary" data-bind="contact.call_button" data-bind-href="tel:brand.phone"></a>
+          <a class="btn btn--ghost" data-bind="contact.mail_button" data-bind-href="mailto:brand.email"></a>
+          <p class="muted small" data-bind="contact.card_note"></p>
+        </div>
       </div>
     </section>
   </main>
@@ -175,7 +173,7 @@
         <p class="footer__title">Связь</p>
         <a data-bind="brand.phone" data-bind-href="tel:brand.phone"></a>
         <a data-bind="brand.email" data-bind-href="mailto:brand.email"></a>
-        <span data-bind="contact.address"></span>
+        <span class="js-address" data-bind="contact.address"></span>
       </div>
     </div>
     <div class="wrap"><div class="footer__bottom">© <span id="year"></span> <span data-bind="hero.photo_caption"></span></div></div>
@@ -186,6 +184,6 @@
     <a class="mbar__cta" href="#contact">Консультация</a>
   </div>
 
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>

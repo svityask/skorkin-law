@@ -60,12 +60,7 @@
 
     $('year').textContent = new Date().getFullYear();
 
-    $('form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const f = new FormData(e.target);
-      const body = `Имя: ${f.get('name')}\nКонтакт: ${f.get('contact')}\n\n${f.get('message')}`;
-      location.href = `mailto:${c.brand.email}?subject=${encodeURIComponent('Запрос на консультацию')}&body=${encodeURIComponent(body)}`;
-    });
+    if (!c.contact.address) document.querySelectorAll('.js-address').forEach((n) => n.remove());
 
     const io = new IntersectionObserver((entries) => entries.forEach((en) => {
       if (!en.isIntersecting) return;

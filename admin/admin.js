@@ -17,7 +17,7 @@
     photo: 'Фотография', seal: 'Текст печати по кругу', author: 'Подпись', telegram: 'Telegram (ник без @)', whatsapp: 'WhatsApp (номер)', photo_caption: 'Подпись к фото', value: 'Значение', label: 'Подпись',
     items: 'Элементы', text: 'Текст', quote: 'Цитата', paragraphs: 'Абзацы', credentials: 'Образование и вехи',
     year: 'Год', note: 'Примечание', area: 'Категория', result: 'Результат', steps: 'Шаги',
-    address: 'Адрес', hours: 'Часы работы', form_button: 'Текст кнопки формы', disclaimer: 'Дисклеймер'
+    address: 'Адрес (пусто — строка скрыта)', hours: 'Часы работы', card_title: 'Заголовок карточки связи', call_button: 'Кнопка «Позвонить»', mail_button: 'Кнопка «Написать»', card_note: 'Примечание под кнопками', disclaimer: 'Дисклеймер'
   };
   const LONG = new Set(['lead', 'text', 'quote', 'description', 'disclaimer', 'paragraphs', 'note']);
 
